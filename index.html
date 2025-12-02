@@ -1,11 +1,240 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>You-Peng Liao  Personal Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Alex Johnson | Academic Portfolio & Notes Hub</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Use Inter font family -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fc; /* Light background */
+        }
+    </style>
+    <script>
+        // Simple client-side routing logic
+        function showSection(sectionId) {
+            // Hide all content sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.add('hidden');
+            });
+
+            // Remove active state from all nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('bg-indigo-700', 'text-white');
+                link.classList.add('text-indigo-200', 'hover:bg-indigo-600');
+            });
+
+            // Show the selected section
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.remove('hidden');
+            }
+
+            // Set the active link state
+            const activeLink = document.getElementById(`nav-${sectionId}`);
+            if (activeLink) {
+                activeLink.classList.remove('text-indigo-200', 'hover:bg-indigo-600');
+                activeLink.classList.add('bg-indigo-700', 'text-white');
+            }
+
+            // Update URL hash for sharing/bookmarking
+            window.location.hash = sectionId;
+        }
+
+        // On load, check URL hash to display the correct section
+        window.onload = function() {
+            let sectionToShow = window.location.hash ? window.location.hash.substring(1) : 'bio';
+            
+            // Validate the hash to prevent errors
+            const validSections = ['bio', 'course-notes', 'study-notes', 'publications'];
+            if (!validSections.includes(sectionToShow)) {
+                sectionToShow = 'bio';
+            }
+
+            showSection(sectionToShow);
+        };
+    </script>
 </head>
-<body>
-    <h1>You-Peng Liao's Personal Page</h1>
-    <p>This is my personal page containing my  publication, study notes and course project</p>
+<body class="min-h-screen antialiased">
+
+    <!-- Main Container -->
+    <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+
+        <!-- Header and Navigation (Fixed on Mobile/Sticky on Desktop) -->
+        <header class="bg-indigo-800 rounded-xl shadow-2xl overflow-hidden mb-8 md:flex md:items-center">
+            
+            <!-- User Info / Title Card (Always Visible) -->
+            <div class="p-6 md:p-8 flex items-center space-x-4 bg-indigo-900 md:w-1/4">
+                <img class="h-16 w-16 rounded-full object-cover border-4 border-indigo-300" 
+                     src="https://placehold.co/100x100/312e81/ffffff?text=AJ" 
+                     alt="Profile Picture" 
+                     onerror="this.onerror=null; this.src='https://placehold.co/100x100/312e81/ffffff?text=AJ'">
+                <div>
+                    <h1 class="text-2xl font-bold text-white">Dr. Alex Johnson</h1>
+                    <p class="text-indigo-300 text-sm">Computational Physicist | Educator</p>
+                </div>
+            </div>
+
+            <!-- Navigation Links (Responsive) -->
+            <nav class="flex-grow">
+                <ul class="flex flex-col md:flex-row divide-y divide-indigo-700 md:divide-y-0">
+                    <li>
+                        <a href="#bio" id="nav-bio" onclick="showSection('bio')" class="nav-link block p-4 text-center font-medium transition duration-150 text-indigo-200 hover:bg-indigo-600">
+                            Personal Bio
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#course-notes" id="nav-course-notes" onclick="showSection('course-notes')" class="nav-link block p-4 text-center font-medium transition duration-150 text-indigo-200 hover:bg-indigo-600">
+                            Course Notes
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#study-notes" id="nav-study-notes" onclick="showSection('study-notes')" class="nav-link block p-4 text-center font-medium transition duration-150 text-indigo-200 hover:bg-indigo-600">
+                            Study Notes
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#publications" id="nav-publications" onclick="showSection('publications')" class="nav-link block p-4 text-center font-medium transition duration-150 text-indigo-200 hover:bg-indigo-600">
+                            Publications
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+
+        <!-- CONTENT SECTIONS -->
+        <main class="mt-8">
+
+            <!-- 1. PERSONAL BIO SECTION -->
+            <section id="bio" class="content-section bg-white p-6 sm:p-8 rounded-xl shadow-lg border-t-4 border-indigo-500 transition-all duration-300">
+                <h2 class="text-3xl font-extrabold text-gray-800 mb-6 border-b pb-2">About Me</h2>
+                
+                <div class="space-y-4 text-gray-700 leading-relaxed">
+                    <p>
+                        Welcome to my personal academic space. I am Dr. Alex Johnson, a Computational Physicist specializing in quantum simulation methods and high-performance computing (HPC). My research focuses on developing novel algorithms to model many-body systems in condensed matter.
+                    </p>
+                    <p>
+                        I hold a Ph.D. in Physics from [University Name] and currently serve as a [Role, e.g., Postdoctoral Researcher] at [Institution]. This site serves as a public repository for my academic work, including open-source lecture materials, personal study summaries, and a curated list of my peer-reviewed publications.
+                    </p>
+                    <h3 class="text-xl font-semibold text-indigo-600 mt-6">Contact & Links</h3>
+                    <ul class="list-disc list-inside ml-4 space-y-1">
+                        <li><a href="mailto:alex.johnson@example.com" class="text-blue-600 hover:underline">Email: alex.johnson@example.com</a></li>
+                        <li><a href="https://github.com/your-username" target="_blank" class="text-blue-600 hover:underline">GitHub Profile</a></li>
+                        <li><a href="#" class="text-blue-600 hover:underline">LinkedIn / Academic Network Link</a></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 2. COURSE NOTES SECTION -->
+            <section id="course-notes" class="content-section hidden bg-white p-6 sm:p-8 rounded-xl shadow-lg border-t-4 border-indigo-500 transition-all duration-300">
+                <h2 class="text-3xl font-extrabold text-gray-800 mb-6 border-b pb-2">Course Notes & Lectures</h2>
+                <p class="text-gray-600 mb-6">Open-source materials and lecture summaries for courses I have taught or assisted with.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Course Card 1 -->
+                    <div class="bg-gray-50 p-5 rounded-lg border border-gray-200 hover:shadow-md transition duration-200">
+                        <h3 class="text-xl font-bold text-indigo-700">Quantum Field Theory I (Spring '24)</h3>
+                        <p class="text-sm text-gray-500 mb-3">PHYS 701 - Graduate Level</p>
+                        <ul class="list-disc list-inside ml-4 space-y-1 text-gray-700">
+                            <li><a href="#" class="text-blue-600 hover:underline">Lecture 1-5: Canonical Quantization (PDF)</a></li>
+                            <li><a href="#" class="text-blue-600 hover:underline">Problem Set 1 Solutions (PDF)</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Course Card 2 -->
+                    <div class="bg-gray-50 p-5 rounded-lg border border-gray-200 hover:shadow-md transition duration-200">
+                        <h3 class="text-xl font-bold text-indigo-700">Introduction to Python for Data Science</h3>
+                        <p class="text-sm text-gray-500 mb-3">CS 101 - Undergraduate Level</p>
+                        <ul class="list-disc list-inside ml-4 space-y-1 text-gray-700">
+                            <li><a href="#" class="text-blue-600 hover:underline">Module 3: Pandas and DataFrames (HTML)</a></li>
+                            <li><a href="#" class="text-blue-600 hover:underline">Full Jupyter Notebook Repository (GitHub)</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Course Card 3 -->
+                    <div class="bg-gray-50 p-5 rounded-lg border border-gray-200 hover:shadow-md transition duration-200">
+                        <h3 class="text-xl font-bold text-indigo-700">Advanced Electromagnetism</h3>
+                        <p class="text-sm text-gray-500 mb-3">PHYS 520 - Advanced Undergraduate</p>
+                        <ul class="list-disc list-inside ml-4 space-y-1 text-gray-700">
+                            <li><a href="#" class="text-blue-600 hover:underline">Notes on Maxwell's Equations (PDF)</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. STUDY NOTES SECTION -->
+            <section id="study-notes" class="content-section hidden bg-white p-6 sm:p-8 rounded-xl shadow-lg border-t-4 border-indigo-500 transition-all duration-300">
+                <h2 class="text-3xl font-extrabold text-gray-800 mb-6 border-b pb-2">Personal Study Notes</h2>
+                <p class="text-gray-600 mb-6">Curated summaries and reference guides from my personal study and research.</p>
+
+                <div class="space-y-6">
+                    <!-- Note Entry 1 -->
+                    <article class="p-4 border rounded-lg hover:border-indigo-400 transition-colors">
+                        <div class="flex justify-between items-start">
+                            <h3 class="text-xl font-semibold text-gray-800">Advanced Monte Carlo Methods Reference</h3>
+                            <span class="text-xs text-gray-500 bg-indigo-100 px-2 py-1 rounded-full">Methodology</span>
+                        </div>
+                        <p class="text-gray-600 my-2">A concise summary of key algorithms: Metropolis, Swendsen-Wang, and Wang-Landau methods, including complexity analysis and common pitfalls.</p>
+                        <a href="#" class="text-indigo-600 hover:text-indigo-800 font-medium text-sm">Read Full Note (PDF) →</a>
+                    </article>
+
+                    <!-- Note Entry 2 -->
+                    <article class="p-4 border rounded-lg hover:border-indigo-400 transition-colors">
+                        <div class="flex justify-between items-start">
+                            <h3 class="text-xl font-semibold text-gray-800">Review of the DFT+U Method</h3>
+                            <span class="text-xs text-gray-500 bg-indigo-100 px-2 py-1 rounded-full">Theory</span>
+                        </div>
+                        <p class="text-gray-600 my-2">My literature review and personal derivation notes on applying Hubbard corrections in Density Functional Theory.</p>
+                        <a href="#" class="text-indigo-600 hover:text-indigo-800 font-medium text-sm">Read Full Note (HTML) →</a>
+                    </article>
+                </div>
+            </section>
+
+            <!-- 4. PUBLICATIONS SECTION -->
+            <section id="publications" class="content-section hidden bg-white p-6 sm:p-8 rounded-xl shadow-lg border-t-4 border-indigo-500 transition-all duration-300">
+                <h2 class="text-3xl font-extrabold text-gray-800 mb-6 border-b pb-2">Selected Publications</h2>
+                <p class="text-gray-600 mb-6">A list of my peer-reviewed journal articles and conference proceedings.</p>
+
+                <div class="space-y-6">
+                    <!-- Publication 1 -->
+                    <div class="border-l-4 border-amber-500 pl-4 py-1">
+                        <p class="text-sm text-gray-500">Journal Article (2024)</p>
+                        <h3 class="text-lg font-semibold text-gray-800">Non-Adiabatic Effects in Highly Correlated Quantum Systems</h3>
+                        <p class="text-gray-700 text-sm italic">Alex Johnson, B. C. Lee, T. S. Park</p>
+                        <p class="text-xs text-gray-600">Journal of Theoretical Physics, Vol. 45, Issue 2, pp. 123-145.</p>
+                        <div class="mt-2 space-x-3">
+                            <a href="#" class="text-indigo-600 hover:text-indigo-800 font-medium text-sm">View Abstract →</a>
+                            <a href="#" class="text-green-600 hover:text-green-800 font-medium text-sm">Download PDF (Open Access)</a>
+                        </div>
+                    </div>
+
+                    <!-- Publication 2 -->
+                    <div class="border-l-4 border-amber-500 pl-4 py-1">
+                        <p class="text-sm text-gray-500">Conference Proceeding (2023)</p>
+                        <h3 class="text-lg font-semibold text-gray-800">Optimizing Cluster Algorithms for GPU Architectures</h3>
+                        <p class="text-gray-700 text-sm italic">T. S. Park, Alex Johnson</p>
+                        <p class="text-xs text-gray-600">Proc. International Conference on High Performance Computing (ICHPC), DOI: 10.1109/ICHPC.2023.12345</p>
+                        <div class="mt-2 space-x-3">
+                            <a href="#" class="text-indigo-600 hover:text-indigo-800 font-medium text-sm">View Abstract →</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="mt-12 text-center text-gray-500 text-sm p-4 border-t border-gray-300">
+            &copy; 2025 Dr. Alex Johnson. Powered by GitHub Pages and Tailwind CSS.
+        </footer>
+
+    </div>
+
 </body>
 </html>
 
